@@ -16,7 +16,7 @@
  ********************************************************************************/
 #define SERVER_IP "127.0.0.1"
 #define NEW_USER_LOGGED_IN 10
-#define SERVER_PORT 3399
+#define SERVER_PORT 5252
 #define MAIN_ERROR_UNKOWN 40
 // sent to matchier and busy both to exit completley
 #define MAIN_CLIENT_EXIT 150
