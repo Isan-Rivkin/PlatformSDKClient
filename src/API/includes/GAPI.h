@@ -8,13 +8,14 @@
 #ifndef SRC_API_INCLUDES_GAPI_H_
 #define SRC_API_INCLUDES_GAPI_H_
 
-#include "MThread.h"
-#include "AbstractAPI.h"
+
+#include <iostream>
 #include <string.h>
 #include <strings.h>
 #include <string>
-#include <iostream>
 #include <vector>
+#include "MThread.h"
+#include "AbstractAPI.h"
 #include "../../TCPServer/AbstractServer.h"
 #include "../../UDP/AbstractPeer.h"
 #include "../../UDP/UDPPeer.h"

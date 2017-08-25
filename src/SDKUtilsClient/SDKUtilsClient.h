@@ -64,7 +64,7 @@ public:
 		 /**
 		  * simulate string input to cin console
 		  */
-		 string simulateInput(const string value)const;
+		 virtual string simulateInput(const string value)const;
 };
 
 } /* namespace networkingLab */

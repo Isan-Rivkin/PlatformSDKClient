@@ -8,24 +8,24 @@
 #ifndef SRC_TCPSERVER_SERVERCONNECTOR_H_
 #define SRC_TCPSERVER_SERVERCONNECTOR_H_
 
-#include "AbstractServer.h"
-#include "../API/includes/ServerHandler.h"
+#include <iostream>
+#include <string>
 #include <string.h>
 #include <strings.h>
-#include <string>
-#include <iostream>
 #include <vector>
-#include "../SDKUtilsClient/SDKUtilsClient.h"
 #include "TCPSocket.h"
+#include "AbstractServer.h"
+#include "../API/includes/ServerHandler.h"
+#include "../SDKUtilsClient/SDKUtilsClient.h"
 #include "../API/Protocol.h"
-//extra
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/ip.h>
+////extra
+//#include <stdio.h>
+//#include <sys/types.h>
+//#include <sys/socket.h>
+//#include <netdb.h>
+//#include <sys/socket.h>
+//#include <netinet/in.h>
+//#include <netinet/ip.h>
 
 using namespace std;
 namespace networkingLab
@@ -95,6 +95,10 @@ public:
 		 * stop game - end session -> get HS
 		 */
 		virtual bool endGame(const string score);
+		/**
+		 * exit the server
+		 */
+		virtual void stopAndExit();
 };
 
 } /* namespace networkingLab */

@@ -79,6 +79,10 @@ int networkingLab::SDKUtilsClient::getCommand(TCPSocket* sock) const
 				command = ntohl(command);
 				return command;
 			}
+			else
+			{
+				cout <<"[SDKUtils:] couldn't read command -1" <<endl;
+			}
 			return -1;
 }
 
@@ -108,7 +112,7 @@ string SDKUtilsClient::sizeToString(size_t sizeToStr)const
 	std::string sService = ss.str();
 	return sService;
 }
-string SDKUtilsClient::simulateInput(const string value) const
+string networkingLab::SDKUtilsClient::simulateInput(const string value) const
 {
 	streambuf *backup;
 		  istringstream oss(value);

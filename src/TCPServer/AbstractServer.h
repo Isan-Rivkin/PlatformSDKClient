@@ -7,6 +7,9 @@
 
 #ifndef SRC_TCPSERVER_ABSTRACTSERVER_H_
 #define SRC_TCPSERVER_ABSTRACTSERVER_H_
+// extras
+#include <stdio.h>
+#include <arpa/inet.h>
 
 #include <iostream>
 #include <string>
@@ -15,9 +18,6 @@
 #include "TCPSocket.h"
 #include "MThread.h"
 
-// extras
-#include <stdio.h>
-#include <arpa/inet.h>
 
 using namespace std;
 namespace networkingLab
@@ -82,6 +82,10 @@ public:
 	 * end game with peer and get highscores
 	 */
 	virtual bool endGame(const string score)=0;
+	/**
+			 * exit the server
+			 */
+			virtual void stopAndExit()=0;
 };
 
 } /* namespace networkingLab */

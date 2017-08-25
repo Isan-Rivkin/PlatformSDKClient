@@ -66,7 +66,7 @@ void ServerConnector::run()
 				}
 				default:
 				{
-					cout <<"[ServerConnector:] Unrecognized command from the server" <<endl;
+					cout <<"[ServerConnector:] Unrecognized command from the server:" <<command <<endl;
 					break;
 				}
 				}
@@ -81,13 +81,13 @@ bool ServerConnector::connect(const string& ip, size_t port)
 
 	this->_socket = new TCPSocket(ip,port);
 	//
-	struct sockaddr_in sin;
-	socklen_t len = sizeof(sin);
-	int fd = _socket->getSocketFileDescriptor();
-	if(getsockname(fd, (struct sockaddr *)&sin, &len) == -1)
-	    perror("getsockname");
-	else
-	    printf("port number %d\n", ntohs(sin.sin_port));
+//	struct sockaddr_in sin;
+//	socklen_t len = sizeof(sin);
+//	int fd = _socket->getSocketFileDescriptor();
+//	if(getsockname(fd, (struct sockaddr *)&sin, &len) == -1)
+//	    perror("getsockname");
+//	else
+//	    printf("port number %d\n", ntohs(sin.sin_port));
 
 	//
 	return true;
@@ -100,11 +100,14 @@ bool ServerConnector::newRegister(const string& name, const string& pwd)
 	if(bytes>0)
 	{
 		int result = utils.getCommand(_socket);
+		char * str_port = utils.getBufferdCommand(_socket);
 		if(result == AUTH_ACK_LOGIN)
 		{
+			handler->handleTCP(str_port, AUTH_ACK_LOGIN);
 			logged_in = true;
 			return true;
 		}
+		handler->handleTCP(str_port, AUTH_NACK_LOGIN);
 	}
 	return false;
 }
@@ -161,6 +164,7 @@ bool ServerConnector::getList()
 			return false;
 		}
 	}
+	return false;
 }
 
 bool ServerConnector::offer_y(const string& name, const string& port)
@@ -210,6 +214,13 @@ bool ServerConnector::endGame(const string score)
 	return false;
 }
 
-} /* namespace networkingLab */
+void ServerConnector::stopAndExit()
+{
+	keepRunning= false;
+	logged_in = false;
+	utils.writeCommand(_socket, MAIN_CLIENT_EXIT, NULL);
+	_socket->close();
+}
 
+} /* namespace networkingLab */
 

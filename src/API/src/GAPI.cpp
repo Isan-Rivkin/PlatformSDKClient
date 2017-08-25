@@ -25,7 +25,7 @@ GAPI::~GAPI() {
 void GAPI::run() {
 	_server->waitForThread();
 	_peer->waitForThread();
-	cout <<"[GAPI:] run method invoked"<<endl;
+	cout <<"[GAPI:] run method invoked === disconnected from server. "<<endl;
 }
 
 bool GAPI::connect(const string& ip, size_t port)
@@ -70,20 +70,20 @@ bool GAPI::getHighscores()
 	return false;
 }
 
-void GAPI::endGame(string score)
+void networkingLab::GAPI::endGame(string score)
 {
 	/**
 	 * TODO::
 	 * let peer know as well !
 	 * UDP
 	 */
-	cout << "[GAPI:] SENDING END GAME CMD WITH SCORE !!! " <<endl;
 	_server->endGame(score);
 }
 
 void GAPI::exit()
 {
-
+	_server->stopAndExit();
+	_peer->stop();
 }
 
 void GAPI::handleUDP(const char* msg)
@@ -137,7 +137,7 @@ void GAPI::startAsyncPeerCommunication()
 	}
 }
 
-int GAPI::sendToPeer(const UserDetails& otherPeer, const char* msg,
+int networkingLab::GAPI::sendToPeer(const UserDetails& otherPeer, const char* msg,
 		size_t len)
 {
 	this->_peer->sendToPeer(otherPeer.ip, otherPeer.port, msg);
@@ -153,7 +153,7 @@ size_t networkingLab::GAPI::getPlayerPort() const
 	return client_port;
 }
 
-void GAPI::initPeerHConnector(size_t port)
+void networkingLab::GAPI::initPeerHConnector(size_t port)
 {
 	_peer = new UDPPeer(this,port);
 }
